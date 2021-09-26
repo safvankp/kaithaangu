@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121040786432",
+    "project_id": "kaithaangu-a29e0",
+    "storage_bucket": "kaithaangu-a29e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121040786432:android:23787b984387e34c72b4e5",
+        "android_client_info": {
+          "package_name": "com.example.kaithaangu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121040786432-vl8qlq3dmo666qqslrr26h7laviamtef.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMSu4dA2dmvjV0WHNf2CJtYawl1wsv-1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121040786432-vl8qlq3dmo666qqslrr26h7laviamtef.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
