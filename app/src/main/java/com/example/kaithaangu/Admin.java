@@ -95,6 +95,7 @@ public class Admin extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 Log.d(DataClass.LOG_TAG, "onPageSelected" +String.valueOf(position));
+                getData();
                 if (position == 1)
                     amountFragment.refreshPage();
             }
@@ -107,7 +108,7 @@ public class Admin extends AppCompatActivity {
 
     }
 
-    private void getData() {
+    public void getData() {
 
         db.collection("users")
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -128,6 +129,8 @@ public class Admin extends AppCompatActivity {
                                 documentClass.setMail(documentSnapshot.get("UserEmail").toString());
                                 documentClass.setPhone(documentSnapshot.get("UserNumber").toString());
                                 documentClass.setIsUser(documentSnapshot.get("IsUser").toString());
+                                if (documentSnapshot.get("TotalAmountInvested") != null)
+                                documentClass.setTotalAMount(Integer.parseInt(documentSnapshot.get("TotalAmountInvested").toString()));
                                 DataClass.documentClassList.add(documentClass);
                             }
                         }

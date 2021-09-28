@@ -10,6 +10,15 @@ public class DocumentClass implements Parcelable {
     private String Phone;
     private String Id;
     private String isUser;
+    private int TotalAMount = 0;
+
+    public int getTotalAMount() {
+        return TotalAMount;
+    }
+
+    public void setTotalAMount(int totalAMount) {
+        TotalAMount = totalAMount;
+    }
 
     public DocumentClass(){
     }

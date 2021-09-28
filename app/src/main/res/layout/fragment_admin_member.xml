@@ -16,22 +16,28 @@
                 android:id="@+id/UserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Name" />
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:hint="Name"
+                android:backgroundTint="@color/bt_bg"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Email"
-                android:layout_below="@+id/UserName"/>
+                android:layout_below="@+id/UserName"
+                android:backgroundTint="@color/bt_bg"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:hint="Pass Code"
-                android:layout_below="@+id/UserEmail"/>
+                android:layout_below="@+id/UserEmail"
+                android:backgroundTint="@color/bt_bg"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserNumber"
@@ -40,7 +46,8 @@
                 android:layout_margin="15dp"
                 android:hint="Mobile Number"
                 android:inputType="phone"
-                android:layout_below="@+id/UserPass"/>
+                android:layout_below="@+id/UserPass"
+                android:backgroundTint="@color/bt_bg"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -48,7 +55,8 @@
                 android:text="submit"
                 android:layout_below="@id/UserNumber"
                 android:layout_margin="15dp"
-                android:id="@+id/submitBtn"/>
+                android:id="@+id/submitBtn"
+                android:background="@drawable/button_bg"/>
 
         </RelativeLayout>
     </ScrollView>

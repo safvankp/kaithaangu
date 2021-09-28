@@ -14,7 +14,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="Logout"
-        android:id="@+id/Logout"/>
+        android:id="@+id/Logout"
+        android:background="@drawable/button_bg_logout"/>
 
 
 
