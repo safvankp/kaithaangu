@@ -32,6 +32,13 @@ public class DataClass {
     public String getUserName(){
         return sharedData.getPref().getString("UserName","");
     }
+    public void saveUserId(String name){
+        sharedData.getPref().edit().putString("UserId",name).apply();
+    }
+
+    public String getUserId(){
+        return sharedData.getPref().getString("UserId","");
+    }
 
     public void saveMobile(String number){
         sharedData.getPref().edit().putString("Mobile",number).apply();

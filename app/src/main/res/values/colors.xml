@@ -11,4 +11,6 @@
     <color name="bg_bg">#8E8989</color>
     <color name="bt_bg">#6CB3F1</color>
     <color name="bt_bg_title">#37587E</color>
+    <color name="green">#41B80F</color>
+    <color name="red">#EF2323</color>
 </resources>

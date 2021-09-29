@@ -124,7 +124,6 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
             @Override
             public void onClick(View view) {
                 if (isValid()){
-                    progressBar.setVisibility(View.VISIBLE);
                     String msg = "";
                     if (isWithdraw){
                         msg = "You are going to withdraw the Amount. Are u sure want to Continue?";
@@ -151,6 +150,7 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
         @Override
         public void alertDialogAction(String action) {
             statementAdding();
+            progressBar.setVisibility(View.VISIBLE);
         }
     };
 
@@ -218,6 +218,7 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
                 Toast.makeText(context, "Registered SuccessFully", Toast.LENGTH_SHORT).show();
                 clearFields();
                 progressBar.setVisibility(View.GONE);
+                ((Admin) context).getData();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -276,7 +277,7 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
 
     private String currentDate(){
         try {
-            return new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+            return new SimpleDateFormat("dd/MMMM/yyyy HH:mm").format(Calendar.getInstance().getTime());
         } catch (Exception e) {
             e.printStackTrace();
             return "";

@@ -40,11 +40,12 @@ public class AlertDialogue {
     public static void showDialogueDetailed(Context context ,String msg,String name,String amount,DialogListener listener){
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialogue_detailed);
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
         TextView mpin_title = dialog.findViewById(R.id.mpin_title);
         TextView tv = dialog.findViewById(R.id.orderResult_text);
         TextView OK = dialog.findViewById(R.id.proceed_icon);
+        TextView cancelIcon = dialog.findViewById(R.id.cancelIcon);
         TextView Name = dialog.findViewById(R.id.Name);
         TextView Amount = dialog.findViewById(R.id.Amount);
 
@@ -58,6 +59,13 @@ public class AlertDialogue {
                 dialog.dismiss();
                 if (listener != null)
                     listener.alertDialogAction("OK");
+            }
+        });
+        cancelIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DoubleClick(view);
+                dialog.dismiss();
             }
         });
 

@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             DocumentReference df = db.collection("users").document(user.getUid());
                             isAdminFlow(df);
+                            DataClass.getInstance(sharedData).saveUserId(user.getUid());
                             //updateUI(user);
                         } else {
                             progressBar.setVisibility(View.GONE);
