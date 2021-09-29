@@ -4,7 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/bg_bg"
+    android:padding="15dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/roundcorner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="40dp">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/emailField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:backgroundTint="@color/bt_bg"
+                />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/passField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:hint="Pass Code"
+                android:backgroundTint="@color/bt_bg"
+               android:maxLines="1"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginBtn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="Login"
+                android:textSize="16dp"
+                android:background="@drawable/button_bg"
+                android:drawableEnd="@drawable/ic_baseline_login_24"
+                android:drawablePadding="2dip"
+                android:paddingStart="30dip"
+                android:paddingEnd="26dip"
+                android:layout_gravity="end"/>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress"
@@ -16,34 +73,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:visibility="gone"/>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/emailField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="200dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="25dp"
-        android:hint="Email Address"
-        />
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/passField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/emailField"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="25dp"
-        android:hint="Pass Code"
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/passField"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="25dp"
-        android:hint="Login"
-        />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

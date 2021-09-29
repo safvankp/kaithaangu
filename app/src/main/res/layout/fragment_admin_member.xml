@@ -10,7 +10,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserName"
@@ -20,16 +21,22 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/bt_bg"
                 android:hint="Name"
-                android:backgroundTint="@color/bt_bg"/>
+                android:inputType="textPersonName" />
+
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:hint="Email"
                 android:layout_below="@+id/UserName"
-                android:backgroundTint="@color/bt_bg"/>
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:backgroundTint="@color/bt_bg"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserPass"
                 android:layout_width="match_parent"
@@ -37,7 +44,8 @@
                 android:layout_margin="15dp"
                 android:hint="Pass Code"
                 android:layout_below="@+id/UserEmail"
-                android:backgroundTint="@color/bt_bg"/>
+                android:backgroundTint="@color/bt_bg"
+                android:singleLine="true"/>
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/UserNumber"

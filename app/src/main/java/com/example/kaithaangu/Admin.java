@@ -13,15 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -129,12 +125,13 @@ public class Admin extends AppCompatActivity {
                                 documentClass.setMail(documentSnapshot.get("UserEmail").toString());
                                 documentClass.setPhone(documentSnapshot.get("UserNumber").toString());
                                 documentClass.setIsUser(documentSnapshot.get("IsUser").toString());
-                                if (documentSnapshot.get("TotalAmountInvested") != null)
-                                documentClass.setTotalAMount(Integer.parseInt(documentSnapshot.get("TotalAmountInvested").toString()));
+                                documentClass.setTotalAMountInvested(Integer.parseInt(documentSnapshot.get("TotalAmountInvested").toString()));
+                                documentClass.setTotalAMountWithdraw(Integer.parseInt(documentSnapshot.get("TotalAmountWithdraw").toString()));
                                 DataClass.documentClassList.add(documentClass);
                             }
                         }
                         Log.d(DataClass.LOG_TAG, String.valueOf(DataClass.documentClassList.size()));
+                        amountFragment.refreshPage();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -146,20 +143,27 @@ public class Admin extends AppCompatActivity {
                     }
                 });
 
-//        db.collection("TotalAmount").get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()){
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                //Log.d(DataClass.LOG_TAG, document.getId() + " => " + document.getData());
-//                                Log.d(DataClass.LOG_TAG,  document.getString("amount"));
-//                            }
-//                        } else {
-//                            Log.w(DataClass.LOG_TAG, "Error getting documents.", task.getException());
-//                        }
-//                    }
-//                });
+        db.collection("TotalAmount")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> documentSnapshots =  queryDocumentSnapshots.getDocuments();
+                        for (int i=0;i<documentSnapshots.size();i++){
+                            DocumentSnapshot documentSnapshot = documentSnapshots.get(i);
+                            DataClass.CompanyAmount = Integer.parseInt(documentSnapshot.get("amount").toString());
+                            Log.d(DataClass.LOG_TAG, String.valueOf(DataClass.CompanyAmount));
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(DataClass.LOG_TAG, "failed");
+                        progressBar.setVisibility(View.GONE);
+                        nodata.setVisibility(View.VISIBLE);
+                        nodata.setText(e.getMessage());
+                    }
+                });
+
 
     }
 }

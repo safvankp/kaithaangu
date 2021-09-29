@@ -93,6 +93,7 @@ public class AdminMemberFragment extends Fragment {
                         map.put("UserID",user.getUid().toString());
                         map.put("UserNumber",UserNumber.getText().toString());
                         map.put("TotalAmountInvested",0);
+                        map.put("TotalAmountWithdraw",0);
                         map.put("IsUser","1");
                          df.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                              @Override

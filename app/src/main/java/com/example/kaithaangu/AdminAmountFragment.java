@@ -18,10 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,9 +27,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,8 +36,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import io.opencensus.internal.Utils;
 
 public class AdminAmountFragment extends Fragment implements Clicklistner {
 
@@ -57,6 +50,7 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
 
     String userID = "";
     int AmountInvested = 0;
+    int withdraw = 0;
 
 
 
@@ -131,18 +125,18 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
             public void onClick(View view) {
                 if (isValid()){
                     progressBar.setVisibility(View.VISIBLE);
+                    String msg = "";
                     if (isWithdraw){
-
+                        msg = "You are going to withdraw the Amount. Are u sure want to Continue?";
+                        AlertDialogue.showDialogueDetailed(context,msg,Username.getText().toString(),
+                                AmountField.getText().toString(),listener);
                     }else{
                         // statement add
                         // individual adding
                         // global adding
-                        String msg = "";
-                        if (isWithdraw)
-                            msg = "You are going to withdraw the Amount. Are u sure want to Continue?";
-                        else
-                            msg = "You are going to Add the Amount. Are u sure want to Continue?";
-                        AlertDialogue.showDialogueOmne(context,msg,listener);
+                        msg = "You are going to Add the Amount. Are u sure want to Continue?";
+                        AlertDialogue.showDialogueDetailed(context,msg,Username.getText().toString(),
+                                AmountField.getText().toString(),listener);
 
                     }
                 }
@@ -160,36 +154,68 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
         }
     };
 
+    AlertDialogue.DialogListener listener2 = new AlertDialogue.DialogListener() {
+        @Override
+        public void alertDialogAction(String action) {
+
+        }
+    };
+
     private void individualAdding(){
         DocumentReference df2 = db.collection("users")
                 .document(userID);
-        df2.update("TotalAmountInvested",AmountInvested+2000).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-//                        Toast.makeText(context, "Registered", Toast.LENGTH_SHORT).show();
-//                        clearFields();
-//                        progressBar.setVisibility(View.GONE);
-                globalAdding();
+        int amount = 0;
+        if (isWithdraw) {
+            amount = withdraw + Integer.parseInt(AmountField.getText().toString());
+            df2.update("TotalAmountWithdraw", amount)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            globalAdding();
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
-                clearFields();
-                progressBar.setVisibility(View.GONE);
-            }
-        });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    clearFields();
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            amount = AmountInvested + Integer.parseInt(AmountField.getText().toString());
+            df2.update("TotalAmountInvested", amount)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            globalAdding();
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    clearFields();
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
     private void globalAdding(){
         DocumentReference df3 = db.collection("TotalAmount")
                 .document("admin");
+        int g_Amount = 0;
 
-        df3.update("amount",122000).addOnSuccessListener(new OnSuccessListener<Void>() {
+        if (isWithdraw)
+            g_Amount = DataClass.CompanyAmount - Integer.parseInt(AmountField.getText().toString());
+        else
+            g_Amount = DataClass.CompanyAmount + Integer.parseInt(AmountField.getText().toString());
+
+        df3.update("amount",g_Amount).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
-                Toast.makeText(context, "Registered", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Registered SuccessFully", Toast.LENGTH_SHORT).show();
                 clearFields();
                 progressBar.setVisibility(View.GONE);
             }
@@ -209,6 +235,7 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
         DocumentReference df = db.collection("statements").document();
         Map<String,Object> map = new HashMap<>();
         map.put("UserName",Username.getText().toString());
+        map.put("UserID",userID);
         map.put("Amount",AmountField.getText().toString());
         map.put("Desc",description.getText().toString());
         map.put("date",currentDate());
@@ -319,7 +346,8 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
     public void itemClicked(int pos, String from) {
         Username.setText(DataClass.documentClassList.get(pos).getUserName());
         userID = DataClass.documentClassList.get(pos).getId();
-        AmountInvested = DataClass.documentClassList.get(pos).getTotalAMount();
+        AmountInvested = DataClass.documentClassList.get(pos).getTotalAMountIntested();
+        withdraw = DataClass.documentClassList.get(pos).getTotalAMountWithdraw();
         listView.setVisibility(View.GONE);
         isClicked =true;
     }
@@ -346,6 +374,11 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
         @Override
         public void onBindViewHolder(@NonNull MyListAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
                 holder.name.setText(listdata.get(holder.getAdapterPosition()).getUserName());
+                if (position == (listdata.size()-1))
+                    holder.v.setVisibility(View.GONE);
+                else
+                    holder.v.setVisibility(View.VISIBLE);
+
 
             holder.name.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -362,10 +395,12 @@ public class AdminAmountFragment extends Fragment implements Clicklistner {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             private TextView name;
+            private View v;
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 name = itemView.findViewById(R.id.label);
+                v = itemView.findViewById(R.id.view);
             }
         }
     }

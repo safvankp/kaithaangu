@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -54,8 +55,12 @@ public class LoginActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-                sign(email.getText().toString(),pass.getText().toString());
+                if (!TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(pass.getText().toString())){
+                    sign(email.getText().toString(), pass.getText().toString());
+                    progressBar.setVisibility(View.VISIBLE);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Field is Empty !!", Toast.LENGTH_SHORT).show();
+                }
                 //getData();
             }
         });
@@ -98,7 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             progressBar.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user.
-                            Log.d(DataClass.LOG_TAG, "signInWithEmail:failure", task.getException());
+                            Log.d(DataClass.LOG_TAG, "signInWithEmail:failure");
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 //                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
 //                                    Toast.LENGTH_SHORT).show();
 //                            updateUI(null);

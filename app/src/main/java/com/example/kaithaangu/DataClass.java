@@ -11,6 +11,7 @@ public class DataClass {
     public static String LOG_TAG = "Kaithaangu";
 
     public static List<DocumentClass> documentClassList = new ArrayList<>();
+    public static int CompanyAmount = 0;
 
     //screen Names
     public static String Admin = "Admin";

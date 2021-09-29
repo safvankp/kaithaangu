@@ -10,14 +10,23 @@ public class DocumentClass implements Parcelable {
     private String Phone;
     private String Id;
     private String isUser;
-    private int TotalAMount = 0;
+    private int TotalAMountInvested = 0;
+    private int TotalAMountWithdraw = 0;
 
-    public int getTotalAMount() {
-        return TotalAMount;
+    public int getTotalAMountWithdraw() {
+        return TotalAMountWithdraw;
     }
 
-    public void setTotalAMount(int totalAMount) {
-        TotalAMount = totalAMount;
+    public void setTotalAMountWithdraw(int totalAMountWithdraw) {
+        TotalAMountWithdraw = totalAMountWithdraw;
+    }
+
+    public int getTotalAMountIntested() {
+        return TotalAMountInvested;
+    }
+
+    public void setTotalAMountInvested(int totalAMount) {
+        TotalAMountInvested = totalAMount;
     }
 
     public DocumentClass(){
